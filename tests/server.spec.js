@@ -23,10 +23,12 @@ describe("Operaciones CRUD de cafes", () => {
   it("Enviando nuevo cafe", async () => {
     const id = Math.floor(Math.random() * 999);
     const cafe = { id, nombre: "Expresso" };
-    const { body: cafes } = await request(server)
+    const response = await request(server)
       .post("/cafes")
       .send(cafe);
-    expect(cafes).toContainEqual(cafe);
+      
+    expect(response.statusCode).toBe(201);
+    expect(response.body).toContainEqual(cafe);
   });
   it("Modificación de id sin coincidencias", async () => {
     const id = "7";
